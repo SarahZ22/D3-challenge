@@ -4,8 +4,8 @@ var svgHeight = 500;
 var margin = {
   top: 60,
   right: 60,
-  bottom: 60,
-  left: 60 };
+  bottom: 100,
+  left: 100 };
 
 var width = svgWidth - margin.left - margin.right;
 var height = svgHeight - margin.top - margin.bottom;
@@ -34,9 +34,8 @@ var labelsTitle = { "poverty": "In Poverty (%)",
                     "obesity": "Obese (%)", 
                     "smokes": "Smokes (%)", 
                     "healthcare": "Lacks Healthcare (%)" };
-var axisPadding = 20;
 
-// function used to define x/y scales and updat3 x/y var upon click on axis label
+// function used to define x/y scales and update x/y var upon click on axis label
 function xScale(censusData, chosenXAxis){
     var xLinearScale = d3.scaleLinear()
         .domain([d3.min(censusData, d=>d[chosenXAxis])*0.9, d3.max(censusData,d=>d[chosenXAxis])*1.1])
@@ -143,10 +142,6 @@ d3.csv("assets/data/data.csv").then(function(censusData) {
   var bottomAxis = d3.axisBottom(xLinearScale);
   var leftAxis = d3.axisLeft(yLinearScale);
 
-  // Create initial axis functions
-  var bottomAxis = d3.axisBottom(xLinearScale);
-  var leftAxis = d3.axisLeft(yLinearScale);
-
   // append axis to chart
   var xAxis = chartGroup.append("g")
     .classed("x-axis", true)
@@ -164,7 +159,7 @@ d3.csv("assets/data/data.csv").then(function(censusData) {
     .append("circle")
     .attr("cx", d => xLinearScale(d[chosenXAxis]))
     .attr("cy", d => yLinearScale(d.obesity))
-    .attr("r", 20)
+    .attr("r", 18)
     .attr("fill", "purple")
     .attr("opacity", ".5");
 
@@ -185,45 +180,45 @@ d3.csv("assets/data/data.csv").then(function(censusData) {
 
     var povertyLabel = labelsGroup.append("text")
         .attr("x", 0)
-        .attr("y", 0)
+        .attr("y", 15)
         .attr("value", "poverty") 
         .classed("active", true)
         .text("In Poverty (%)");
     
     var healthcareLabel = labelsGroup.append("text")
         .attr("transform", "rotate(-90)")
-        .attr("x", (margin.left) * 2.8)
-        .attr("y", 0 - (height+12))
+        .attr("x", margin.left * 2)
+        .attr("y", 0 - (height + 95))
         .attr("value", "healthcare") 
         .classed("active", true)
         .text("Lacks Healthcare (%)");
 
     var ageLabel = labelsGroup.append("text")
         .attr("x", 0)
-        .attr("y", 20)
+        .attr("y", 35)
         .attr("value", "age") 
         .classed("inactive", true)
         .text("Age (Median)");
 
     var smokeLabel = labelsGroup.append("text")
         .attr("transform", "rotate(-90)")
-        .attr("x", (margin.left) * 2.8)
-        .attr("y", 0 - (height +32))
+        .attr("x", margin.left * 2)
+        .attr("y", 0 - (height + 115))
         .attr("value", "smokes") 
         .classed("inactive", true)
         .text("Smokes (%)");
 
     var incomeLabel = labelsGroup.append("text")
         .attr("x", 0)
-        .attr("y", 40)
+        .attr("y", 55)
         .attr("value", "income") 
         .classed("inactive", true)
         .text("Household Income (Median)");
 
     var obesityLabel = labelsGroup.append("text")
         .attr("transform", "rotate(-90)")
-        .attr("x", (margin.left) * 2.8)
-        .attr("y", 0 - (height +52))
+        .attr("x", margin.left * 2)
+        .attr("y", 0 - (height + 135))
         .attr("value", "obesity") 
         .classed("inactive", true)
         .text("Obesity (%)");
